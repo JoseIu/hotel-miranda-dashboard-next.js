@@ -62,7 +62,21 @@ const rooms = (): Room[] => {
       price: faker.helpers.rangeToNumber({ min: 100, max: 1000 }),
       discount_percentage: faker.helpers.rangeToNumber({ min: 0, max: 50 }),
       offer: faker.datatype.boolean(),
-      status: faker.helpers.arrayElement(['AVAILABLE', 'BOOKED']),
+      status: faker.helpers.arrayElement(['BOOKED']),
+      room_imagess: ['room1.webp', 'room2.webp', 'room3.webp'],
+    };
+
+    rooms.push(room);
+  }
+  for (let i = 0; i < 10; i++) {
+    const room: Room = {
+      room_number: faker.helpers.rangeToNumber({ min: 1, max: 100 }),
+      room_type: faker.helpers.arrayElement(['SINGLE_BED', 'DOUBLE_BED', 'DOUBLE_SUPERIOR', 'SUITE']),
+      description: faker.lorem.sentence(),
+      price: faker.helpers.rangeToNumber({ min: 100, max: 1000 }),
+      discount_percentage: faker.helpers.rangeToNumber({ min: 0, max: 50 }),
+      offer: faker.datatype.boolean(),
+      status: faker.helpers.arrayElement(['AVAILABLE']),
       room_imagess: ['room1.webp', 'room2.webp', 'room3.webp'],
     };
 

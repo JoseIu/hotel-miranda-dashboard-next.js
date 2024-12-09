@@ -18,7 +18,7 @@ const main = async () => {
     });
   }
 
-  const roomIds = await prisma.room.findMany({ select: { id: true } });
+  const roomIds = await prisma.room.findMany({ where: { status: 'BOOKED' }, select: { id: true } });
   const roomTypes = await prisma.room.findMany({ select: { room_type: true } });
 
   for (const [index, booking] of bookings.entries()) {
