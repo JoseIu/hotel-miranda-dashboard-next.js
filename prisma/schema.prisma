@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum RoomType {
+  SINGLE_BED
+  DOUBLE_BED
+  DOUBLE_SUPERIOR
+  SUITE
+}
+
+enum RoomStatus {
+  AVAILABLE
+  BOOKED
+}
+
+model Room {
+  id                  String     @id @default(uuid())
+  room_number         Int
+  room_type           RoomType
+  description         String
+  price               Float
+  discount_percentage Float
+  offer               Boolean    @default(false)
+  status              RoomStatus
+  created_at          DateTime   @default(now())
+
+  room_images RoomImage[]
+  bookings    Booking[]
+}
+
+model RoomImage {
+  id    String @id @default(uuid())
+  image String
+
+  room    Room   @relation(fields: [room_id], references: [id], onDelete: Cascade)
+  room_id String
+}
+
+enum BookingStatus {
+  In_PROGRESS
+  CHECK_IN
+  CHECK_OUT
+}
+
+model Booking {
+  id              String        @id @default(uuid())
+  guest_name      String
+  order_date      DateTime      @default(now())
+  check_in_date   DateTime
+  check_out_date  DateTime
+  special_request String?
+  status          BookingStatus
+
+  room    Room   @relation(fields: [room_id], references: [id])
+  room_id String
+
+  guest_image GuestImage?
+}
+
+model GuestImage {
+  id    String @id @default(uuid())
+  image String
+
+  booking    Booking @relation(fields: [booking_id], references: [id], onDelete: Cascade)
+  booking_id String  @unique
+}
