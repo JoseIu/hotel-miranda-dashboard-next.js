@@ -63,6 +63,8 @@ model Booking {
   special_request String?
   status          BookingStatus
 
+  room_type RoomType
+
   room    Room   @relation(fields: [room_id], references: [id])
   room_id String
 

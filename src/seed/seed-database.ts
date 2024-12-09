@@ -19,15 +19,18 @@ const main = async () => {
   }
 
   const roomIds = await prisma.room.findMany({ select: { id: true } });
+  const roomTypes = await prisma.room.findMany({ select: { room_type: true } });
 
   for (const [index, booking] of bookings.entries()) {
     const { guest_image, ...bookingData } = booking;
 
     const roomId = roomIds[index].id;
+    const roomType = roomTypes[index].room_type;
 
     await prisma.booking.create({
       data: {
         ...bookingData,
+        room_type: roomType,
         room_id: roomId,
 
         guest_image: { create: { image: guest_image } },
