@@ -1,0 +1,9 @@
+{
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": true,
+  "tsxSingleQuote": true,
+  "trainlingComma": "none",
+  "arrowParents": "avoid",
+  "printWidth": 110
+}
