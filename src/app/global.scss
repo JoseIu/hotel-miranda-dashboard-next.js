@@ -4,8 +4,12 @@
   font-weight: 100 900;
 }
 :root {
-  --text-color: #393939;
+  --text-color: #18181b;
   --bg-color: #f9f9f9;
+  --border-color: #18181b;
+  --error-color: #ed4a4a;
+  --bg-color: #f4f4f5;
+  --input-bg: #fff;
 
   /* Tipografía */
   --tipo-principal: 'Geist', Arial, sans-serif;
@@ -55,6 +59,14 @@ li {
 
 html {
   scroll-behavior: smooth;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Cal Sans', system-ui, sans-serif;
 }
 
 h1,
