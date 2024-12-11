@@ -30,16 +30,29 @@ interface SeedData {
   rooms: Room[];
   bookings: Booking[];
 }
-
+const getCheckinDate = () => {
+  const futureDate = new Date(faker.date.future());
+  futureDate.setUTCHours(10, 0, 0, 0);
+  return futureDate;
+};
+const getCheckOutDate = (checkInDate: Date): Date => {
+  const daysToAdd = faker.number.int({ min: 1, max: 7 });
+  const checkOutDate = new Date(checkInDate);
+  checkOutDate.setDate(checkOutDate.getDate() + daysToAdd);
+  checkOutDate.setUTCHours(9, 0, 0, 0);
+  return checkOutDate;
+};
 const bookings = (): Booking[] => {
   const bookings: Booking[] = [];
 
   for (let i = 0; i < 10; i++) {
+    const checkInDate = getCheckinDate();
     const booking: Booking = {
       guest_name: faker.person.firstName(),
       order_date: faker.date.recent(),
-      check_in_date: faker.date.future(),
-      check_out_date: faker.date.future(),
+      check_in_date: checkInDate,
+
+      check_out_date: getCheckOutDate(checkInDate),
       special_request: faker.lorem.sentence(),
       status: faker.helpers.arrayElement(['In_PROGRESS', 'CHECK_IN', 'CHECK_OUT']),
       guest_image: faker.image.avatar(),
