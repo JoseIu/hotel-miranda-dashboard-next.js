@@ -1,5 +1,6 @@
+import 'cal-sans';
 import type { Metadata } from 'next';
-import './global.css';
+import './global.scss';
 
 // const geistSans = localFont({
 // 	src: "./fonts/GeistVF.woff",

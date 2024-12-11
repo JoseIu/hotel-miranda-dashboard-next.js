@@ -10,23 +10,28 @@
     "seed": "ts-node src/seed/seed-database.ts"
   },
   "dependencies": {
-    "@primer/octicons-react": "^19.13.0",
+    "@hookform/resolvers": "3.9.1",
+    "@primer/octicons-react": "19.13.0",
     "@prisma/client": "6.0.1",
+    "cal-sans": "^1.0.1",
     "next": "15.0.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "19.0.0",
+    "react-hook-form": "7.54.0",
+    "react-hot-toast": "2.4.1",
+    "zod": "3.24.0"
   },
   "devDependencies": {
-    "@faker-js/faker": "^9.3.0",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^8",
+    "@faker-js/faker": "9.3.0",
+    "@types/node": "20",
+    "@types/react": "19",
+    "@types/react-dom": "19",
+    "eslint": "8",
     "eslint-config-next": "15.0.4",
-    "prettier": "^3.4.2",
+    "prettier": "3.4.2",
     "prisma": "6.0.1",
-    "sass": "^1.82.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5"
+    "sass": "1.82.0",
+    "ts-node": "10.9.2",
+    "typescript": "5"
   }
 }

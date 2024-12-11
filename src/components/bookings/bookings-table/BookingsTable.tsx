@@ -2,6 +2,7 @@
 
 import { Booking } from '@/interfaces';
 import { formatter } from '@/utils';
+import Link from 'next/link';
 import './bookingTable.scss';
 
 type Props = {
@@ -9,7 +10,6 @@ type Props = {
 };
 // formatter
 export const BookingsTable = ({ bookings }: Props) => {
-  console.log(bookings);
   return (
     <div className="table-container">
       <table className="table">
@@ -45,7 +45,11 @@ export const BookingsTable = ({ bookings }: Props) => {
               <td className="table__body-td">
                 <p>{booking.status}</p>
               </td>
-              <td className="table__body-td">borrar</td>
+              <td className="table__body-td">
+                <div>
+                  <Link href={`/dashboard/bookings/${booking.id}`}>editar</Link>
+                </div>
+              </td>
             </tr>
           ))}
         </tbody>
