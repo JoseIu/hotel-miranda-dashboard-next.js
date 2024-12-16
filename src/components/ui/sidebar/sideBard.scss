@@ -1,20 +1,52 @@
 .side-bar {
+  background-color: var(--bg-color);
+  border-right: 0.125rem solid var(--border-color);
   padding: 1rem;
-  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  &__logo {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    gap: 0.4rem;
+    padding-left: 1rem;
+  }
   &__paths {
     display: flex;
     flex-direction: column;
-    row-gap: 0.5rem;
+    row-gap: 0.8rem;
   }
 }
 .sidebar-item {
   &__link {
-    padding: 1rem;
-    border-radius: 0.3rem;
-    background-color: rosybrown;
-    transition: background-color 0.3s ease-in;
+    color: var(--link-color);
+    font-size: 0.875rem;
+    padding: 0.5625rem 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    font-weight: 500;
+    background-color: transparent;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.3rem;
+    &:hover {
+      background-color: var(--input-bg);
+      color: var(--link-active);
+      border-color: var(--border-color);
+      box-shadow: var(--box-shadow);
+    }
+  }
+  &__icon {
+    width: 2rem;
+    transition: color 0.3s ease-in;
   }
 }
 .active {
-  background-color: red;
+  background-color: var(--input-bg);
+  color: var(--link-active);
+  border-color: var(--border-color);
+  box-shadow: var(--box-shadow);
 }

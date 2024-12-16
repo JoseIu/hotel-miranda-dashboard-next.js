@@ -1,14 +1,14 @@
 'use client';
 import { checkAvailability } from '@/app/actions/bookings/checkAvailability';
-import { DatePicker, InputForm } from '@/components';
-import { RoomAvailability, RoomType } from '@/interfaces/roomResp';
+import { DatePicker, InputForm, RoomsAvailable } from '@/components';
+import { ROOM_TYPE, RoomAvailability, RoomType } from '@/interfaces/roomResp';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { use, useEffect, useState } from 'react';
+import { use, useEffect, useState, useTransition } from 'react';
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { BookingSchema, bookingShema } from './zod/bookingSchema';
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id?: string }>;
 };
 
 const BookingFormPage = ({ params }: Props) => {
@@ -25,12 +25,14 @@ const BookingFormPage = ({ params }: Props) => {
 
   const checkIn = useWatch({ control, name: 'checkin' });
   const checkOut = useWatch({ control, name: 'checkOut' });
-  const [roomsAvailable, setRoomsAvailable] = useState<RoomAvailability[]>([]);
+  const roomType = useWatch({ control, name: 'roomType' });
 
   console.log({ checkIn, checkOut });
 
   console.log({ id });
 
+  const [isPending, startTransition] = useTransition();
+  const [roomsAvailable, setRoomsAvailable] = useState<RoomAvailability[]>([]);
   const checkAvailabilityy = async (start: string, end: string, room_type: RoomType) => {
     if (!start || !end) return;
     const response = await checkAvailability(start, end, room_type);
@@ -44,10 +46,14 @@ const BookingFormPage = ({ params }: Props) => {
   };
 
   useEffect(() => {
-    if (!checkIn || !checkOut) return;
+    if (!checkIn && !checkOut) return;
 
-    checkAvailabilityy(checkIn, checkOut, 'SINGLE_BED');
-  }, [checkIn, checkOut]);
+    startTransition(() => {
+      checkAvailabilityy(checkIn, checkOut, roomType);
+    });
+  }, [checkIn, checkOut, roomType]);
+
+  console.log({ isPending });
 
   return (
     <div>
@@ -71,25 +77,23 @@ const BookingFormPage = ({ params }: Props) => {
         </div>
 
         <div>
-          <DatePicker label="Check in" id="check-in" error={errors['checkin']} {...register('checkin')} />
-          <DatePicker label="Check out" id="check-out" error={errors['checkOut']} {...register('checkOut')} />
+          <DatePicker label="Check in" id="checkin" error={errors['checkin']} {...register('checkin')} />
+          <DatePicker label="Check out" id="checkOut" error={errors['checkOut']} {...register('checkOut')} />
         </div>
 
         <div>
-          <label htmlFor="">Rooms Available</label>
-          <select name="" id="">
-            {!roomsAvailable.length && (
-              <option value="">Select a check in abd Check out to get rooms availabe </option>
-            )}
-            {roomsAvailable.map((room) => (
-              <option key={room.id} value={`${room.room_number}-${room.room_type}`}>
-                {room.room_number} - {room.room_type}
+          <select id="roomType" {...register('roomType')}>
+            <option value=""> select a room type </option>
+            {ROOM_TYPE.map((room) => (
+              <option key={room} value={room}>
+                {room}
               </option>
             ))}
           </select>
+          <RoomsAvailable roomsAvailable={roomsAvailable} isPending={isPending} />
         </div>
 
-        <button type="submit">Add</button>
+        <button type="submit">{id ? 'Update' : 'Create'}</button>
       </form>
     </div>
   );

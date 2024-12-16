@@ -4,12 +4,22 @@
   font-weight: 100 900;
 }
 :root {
-  --text-color: #18181b;
-  --bg-color: #f9f9f9;
-  --border-color: #18181b;
+  --body-bg: #fff;
+  --bg-color: rgba(245, 245, 245, 1);
   --error-color: #ed4a4a;
-  --bg-color: #f4f4f5;
+  --side-bar-color: #f1f2f7;
+  --text-light: #fff;
+
   --input-bg: #fff;
+  --link-color: #273240;
+  --text-color: #18181b;
+  --white-color: #ffffff;
+  --border-color: #18181b;
+
+  --hover-color: #ffee8c;
+
+  --box-shadow: 5px 6px 0 0 var(--border-color);
+  --box-shadow-small: 3px 3px 0 0 var(--border-color);
 
   /* Tipografía */
   --tipo-principal: 'Geist', Arial, sans-serif;
@@ -22,7 +32,6 @@
   padding: 0;
   border: 0;
   box-sizing: border-box;
-  vertical-align: baseline;
 }
 *::before,
 *::after {
@@ -30,6 +39,7 @@
 }
 
 img,
+svg,
 picture,
 video,
 iframe,
@@ -132,12 +142,5 @@ body {
   font-size: 100%;
   font-family: var(--tipo-principal);
   color: var(--text-color);
-  background-color: var(--bg-color);
-
-  /* (Opcional) */
-  font-smooth: always;
-  /* (Opcional) */
-  -webkit-font-smoothing: antialiased;
-  /* (Opcional) */
-  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--body-bg);
 }
