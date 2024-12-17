@@ -1,4 +1,5 @@
 import { SideBar } from '@/components';
+import { Header } from '@/components/ui/header/Header';
 import './layout.scss';
 
 type Props = {
@@ -10,7 +11,10 @@ const layout = ({ children }: Props) => {
     <div className="layout">
       <SideBar />
 
-      <div>{children}</div>
+      <div>
+        <Header />
+        {children}
+      </div>
     </div>
   );
 };

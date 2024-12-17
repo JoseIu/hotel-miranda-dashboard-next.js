@@ -5,6 +5,7 @@
 .table {
   width: 100%;
   font-size: 0.875rem;
+  white-space: nowrap;
   &__head {
     background-color: var(--bg-color);
     border-bottom: 0.0625rem solid var(--link-color);
@@ -28,7 +29,6 @@
       padding: 0.75rem;
       vertical-align: middle;
       max-width: 15rem;
-      text-wrap: balance;
       font-size: clamp(0.8rem, 1vw, 1rem);
       @media screen and (max-width: 450px) {
         padding: 0.5rem;

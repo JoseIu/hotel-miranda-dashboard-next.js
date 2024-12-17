@@ -2,10 +2,32 @@
 
 import { BookingStatus } from '@/interfaces';
 import prisma from '@/lib/prisma';
+import { getOrderBy, sortBookings } from '@/utils/sortBookings';
+type Props = {
+  page?: number;
+  take?: number;
+  search?: string;
+  status?: BookingStatus;
+  orderBy?: string;
+};
 
-export const getBookings = async () => {
+export const getBookings = async ({ page = 1, take = 10, search, status, orderBy = 'order-date' }: Props) => {
+  if (isNaN(Number(page))) page = 1;
+  if (page < 1) page = 1;
   try {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const bookings = await prisma.booking.findMany({
+      take: take,
+      skip: (page - 1) * take,
+      where: {
+        guest_name: {
+          contains: search,
+        },
+        status: {
+          equals: status,
+        },
+      },
+      orderBy: getOrderBy(orderBy),
       include: {
         guest_image: {
           select: {
@@ -27,7 +49,13 @@ export const getBookings = async () => {
         status: status as BookingStatus,
       };
     });
-
+    if (orderBy === 'CHECK_IN' || orderBy === 'CHECK_OUT') {
+      const bookingsSortered = sortBookings(bookingsFormatted, orderBy);
+      return {
+        bookings: bookingsSortered,
+        error: false,
+      };
+    }
     return {
       bookings: bookingsFormatted,
       error: false,
