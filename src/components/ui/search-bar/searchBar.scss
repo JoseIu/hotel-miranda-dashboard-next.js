@@ -1,0 +1,45 @@
+.search-bar {
+  flex-basis: 20rem;
+  flex-grow: 9999;
+  width: 100%;
+  position: relative;
+  border-radius: 5px;
+  outline: 0.0625rem solid var(--border-color);
+
+  &:focus-within {
+    background-color: var(--bg-color);
+    box-shadow: var(--box-shadow);
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0.7rem 0.7rem 0.7rem 2.5rem;
+    color: var(--text-dartk);
+  }
+
+  &__input:focus {
+    outline: none;
+  }
+
+  &__icon {
+    position: absolute;
+    left: 10px;
+    top: 32%;
+    transform: translateY(-10%);
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+  }
+
+  &__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
