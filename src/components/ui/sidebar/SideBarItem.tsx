@@ -15,7 +15,7 @@ export const SideBarItem = ({ path, title, Icon }: Props) => {
     <li className="sidebar-item">
       <Link className={`sidebar-item__link ${isActive}`} href={path}>
         <Icon size={18} className="sidebar-item__icon" />
-        {title}
+        <span className="sidebar-item__title">{title}</span>
       </Link>
     </li>
   );

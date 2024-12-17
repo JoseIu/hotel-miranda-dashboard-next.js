@@ -1,10 +1,28 @@
 .side-bar {
   background-color: var(--bg-color);
   border-right: 0.125rem solid var(--border-color);
+
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 14rem;
+  transform: translate(-100%);
+
   padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  transition: transform 0.3s ease-in-out;
+  &--open {
+    transform: translate(0);
+    z-index: 100;
+  }
+  @media screen and (min-width: 1000px) {
+    position: initial;
+    top: initial;
+    transform: translate(0);
+  }
+
   &__logo {
     display: flex;
     align-items: center;
@@ -15,7 +33,32 @@
   &__paths {
     display: flex;
     flex-direction: column;
-    row-gap: 0.8rem;
+    gap: 0.8rem;
+  }
+}
+.side-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 10;
+  background-color: black;
+  opacity: 0.3;
+}
+.side-bg-close {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 10;
+  backdrop-filter: blur(0.125rem);
+}
+@media screen and (min-width: 1000px) {
+  .side-bg,
+  .side-bg-close {
+    display: none;
   }
 }
 .sidebar-item {

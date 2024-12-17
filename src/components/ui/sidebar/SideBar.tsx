@@ -1,4 +1,5 @@
 'use client';
+import { useSideBar } from '@/store/ui/sideBar';
 import { CalendarIcon, InboxIcon, LockIcon, PersonIcon, ProjectIcon } from '@primer/octicons-react';
 import { Logo } from '../logo/Logo';
 import './sideBard.scss';
@@ -33,16 +34,23 @@ const menuPaths = [
 ];
 
 export const SideBar = () => {
+  const isSideBarOpen = useSideBar((state) => state.isSideBarOpen);
+  const closeMenu = useSideBar((state) => state.closeSideBar);
+
   return (
-    <aside className="side-bar">
-      <h1 className="side-bar__logo">
-        <Logo /> iranda
-      </h1>
-      <ul className="side-bar__paths">
-        {menuPaths.map((menu) => (
-          <SideBarItem key={menu.path} path={menu.path} title={menu.title} Icon={menu.Icon} />
-        ))}
-      </ul>
-    </aside>
+    <div>
+      {isSideBarOpen && <div className="side-bg"></div>}
+      {isSideBarOpen && <div onClick={closeMenu} className="side-bg-close"></div>}
+      <aside className={`side-bar ${isSideBarOpen && 'side-bar--open'}`}>
+        <h1 className="side-bar__logo">
+          <Logo /> iranda
+        </h1>
+        <ul className="side-bar__paths">
+          {menuPaths.map((menu) => (
+            <SideBarItem key={menu.path} path={menu.path} title={menu.title} Icon={menu.Icon} />
+          ))}
+        </ul>
+      </aside>
+    </div>
   );
 };
