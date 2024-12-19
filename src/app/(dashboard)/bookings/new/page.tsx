@@ -1,9 +1,10 @@
 import { NewBookingForm } from '@/components';
+import { GoBack } from '@/components/ui/go-back/GoBack';
 
 const NewBookingPage = () => {
   return (
-    <div>
-      <h2>BookingFormPage</h2>
+    <div className="section-form">
+      <GoBack />
       <NewBookingForm />
     </div>
   );
