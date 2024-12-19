@@ -1,15 +1,15 @@
 import { ROOM_TYPE } from '@/interfaces';
 import { z } from 'zod';
 
-//name, lastName, orderDate, checkinDate, checkOut, roomType,status
-
 //TODO: move to interfaces
-const STATUS = ['Check In', 'Check Out', 'In Progress'] as const;
+export const BOOKING_STATUS = ['CHECK_IN', 'CHECK_OUT', 'In_PROGRESS'] as const;
 
 export const bookingShema = z.object({
-  name: z.string({ message: 'Name must be a text' }).min(1, { message: 'Name is required' }),
-  lastName: z.string({ message: 'Last name must be a text' }).min(1, { message: 'Last Name is required' }),
-  orderDate: z
+  guest_name: z.string({ message: 'Name must be a text' }).min(1, { message: 'Name is required' }),
+  guest_last_name: z
+    .string({ message: 'Last name must be a text' })
+    .min(1, { message: 'Last Name is required' }),
+  order_date: z
     .string()
     .min(1, { message: 'Order Date is required' })
     .refine((date) => new Date(date).toString() !== 'Invalid Date', {
@@ -19,24 +19,26 @@ export const bookingShema = z.object({
       message: 'The date cannot be in the past',
     }),
 
-  checkin: z
+  check_in: z
     .string()
     .min(1, { message: 'Checkin Date is required' })
     .refine((date) => new Date(date).toString() !== 'Invalid Date', {
       message: 'Select a valid date formant',
     }),
-  checkOut: z
+  check_out: z
     .string()
     .min(1, { message: 'Check Out is required' })
     .refine((date) => new Date(date).toString() !== 'Invalid Date', {
       message: 'Select a valid date formant',
     }),
 
-  roomType: z.enum(ROOM_TYPE),
-  status: z.enum(STATUS),
-  specialRequest: z
+  room_type: z.enum(ROOM_TYPE, { message: 'Select a valid room type' }),
+  room_number: z.string({ message: 'Room ID is required' }),
+  status: z.enum(BOOKING_STATUS, { message: 'Select a valid status' }),
+  special_request: z
     .string({ message: 'Special request must be a text' })
-    .min(1, { message: 'Special Request is required' }),
+    .min(1, { message: 'Special Request is required' })
+    .optional(),
 });
 
 export type BookingSchema = z.infer<typeof bookingShema>;

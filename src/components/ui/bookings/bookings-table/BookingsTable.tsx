@@ -4,6 +4,7 @@ import { BookingStatusBadge } from '@/components/ui/booking-status/BookingStatus
 import { Modal } from '@/components/ui/modal/Modal';
 import { RoomTypBadge } from '@/components/ui/room-type/RoomTypBadge';
 import { Booking } from '@/interfaces';
+import { useBookingStore } from '@/store/booking/bookingStore';
 import { formatter } from '@/utils';
 import { PencilIcon, TrashIcon } from '@primer/octicons-react';
 import Link from 'next/link';
@@ -16,6 +17,8 @@ type Props = {
 export const BookingsTable = ({ bookings }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState<string | null>('');
+  const setBookings = useBookingStore((state) => state.addBookings);
+  setBookings(bookings);
   return (
     <>
       <section className="table-container">
@@ -38,7 +41,9 @@ export const BookingsTable = ({ bookings }: Props) => {
                 <td className="table__body-td">
                   <div className="table__body-sender">
                     <img className="table__body-img" src={booking.guest_image} alt={booking.guest_name} />
-                    <span className="table__body-td">{booking.guest_name}</span>
+                    <span className="table__body-td">
+                      {booking.guest_name} - {booking.guest_last_name}
+                    </span>
                   </div>
                 </td>
                 <td className="table__body-td">{formatter(booking.order_date)}</td>

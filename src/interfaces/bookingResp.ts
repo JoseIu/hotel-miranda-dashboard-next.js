@@ -8,6 +8,7 @@ export interface BookingResp {
 export interface Booking {
   id: string;
   guest_name: string;
+  guest_last_name: string;
   special_request: string | null;
   guest_image: string;
   room_type: RoomType;
@@ -15,6 +16,20 @@ export interface Booking {
   check_in: string;
   check_out: string;
   room_id: string;
+  status: BookingStatus;
+}
+
+export interface BookingToSend {
+  guest_name: string;
+  guest_last_name: string;
+  special_request: string | null;
+  guest_image: string;
+  room_type: RoomType;
+  // room_id: string;
+  room_number: number;
+  order_date: string;
+  check_in: string;
+  check_out: string;
   status: BookingStatus;
 }
 

@@ -1,9 +1,11 @@
 .table-container {
   overflow-x: auto;
+
   outline: 0.0625rem solid var(--link-color);
 }
 .table {
   width: 100%;
+
   font-size: 0.875rem;
   white-space: nowrap;
   &__head {

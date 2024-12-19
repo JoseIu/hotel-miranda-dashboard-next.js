@@ -17,8 +17,8 @@ export const SelectFilter = ({ label, options, ...props }: Props) => {
       </label>
 
       <select className="select-filter__select" {...props}>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
+        {options.map((option, index) => (
+          <option key={option.value + index} value={option.value}>
             {option.label}
           </option>
         ))}
