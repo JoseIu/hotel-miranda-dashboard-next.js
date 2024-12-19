@@ -11,5 +11,6 @@ type Props = {
 export const BookingContent = async ({ search, status, orderBy }: Props) => {
   const result = await getBookings({ search, status, orderBy });
   const bookings = result?.bookings ?? [];
+
   return <BookingsTable bookings={bookings} />;
 };
