@@ -5,7 +5,6 @@
   position: fixed;
   top: 0;
   height: 100%;
-  width: 14rem;
   transform: translate(-100%);
 
   padding: 1rem;
@@ -17,7 +16,7 @@
     transform: translate(0);
     z-index: 100;
   }
-  @media screen and (min-width: 1000px) {
+  @media screen and (min-width: 1110px) {
     position: initial;
     top: initial;
     transform: translate(0);
@@ -55,7 +54,7 @@
   z-index: 10;
   backdrop-filter: blur(0.125rem);
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1110px) {
   .side-bg,
   .side-bg-close {
     display: none;
