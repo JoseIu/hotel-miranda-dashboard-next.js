@@ -18,6 +18,7 @@ type BookingStatus = 'In_PROGRESS' | 'CHECK_IN' | 'CHECK_OUT';
 
 interface Booking {
   guest_name: string;
+  guest_last_name: string;
   order_date: Date;
   check_in_date: Date;
   check_out_date: Date;
@@ -49,6 +50,7 @@ const bookings = (): Booking[] => {
     const checkInDate = getCheckinDate();
     const booking: Booking = {
       guest_name: faker.person.firstName(),
+      guest_last_name: faker.person.lastName(),
       order_date: faker.date.recent(),
       check_in_date: checkInDate,
 

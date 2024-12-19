@@ -57,6 +57,8 @@ enum BookingStatus {
 model Booking {
   id              String        @id @default(uuid())
   guest_name      String
+  guest_last_name String
+  room_number     Int
   order_date      DateTime      @default(now())
   check_in_date   DateTime
   check_out_date  DateTime
