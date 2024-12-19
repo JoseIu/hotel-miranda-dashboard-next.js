@@ -1,5 +1,5 @@
-import { BookingContent } from '@/components/bookings/booking-content/BookingContent';
-import { BookingsFilters } from '@/components/bookings/booking-filters/BookingsFilters';
+import { BookingContent } from '@/components/ui/bookings/booking-content/BookingContent';
+import { BookingsFilters } from '@/components/ui/bookings/booking-filters/BookingsFilters';
 import { TableSkeleton } from '@/components/ui/table-skeleton/TableSkeleton';
 import { BookingStatus } from '@/interfaces';
 import { PlusIcon } from '@primer/octicons-react';
