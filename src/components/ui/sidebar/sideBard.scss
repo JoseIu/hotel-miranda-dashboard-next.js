@@ -12,9 +12,10 @@
   flex-direction: column;
   gap: 3rem;
   transition: transform 0.3s ease-in-out;
+  z-index: 100;
+
   &--open {
     transform: translate(0);
-    z-index: 100;
   }
   @media screen and (min-width: 1110px) {
     position: initial;
