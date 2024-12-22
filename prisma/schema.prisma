@@ -80,3 +80,14 @@ model GuestImage {
   booking    Booking @relation(fields: [booking_id], references: [id], onDelete: Cascade)
   booking_id String  @unique
 }
+
+model Message {
+  id             String   @id @default(uuid())
+  customer_name  String
+  customer_email String
+  customer_phone String
+  date           DateTime @default(now())
+  subject        String
+  message        String
+  archived       Boolean  @default(false)
+}

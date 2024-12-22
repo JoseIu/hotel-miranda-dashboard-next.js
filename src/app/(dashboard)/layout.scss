@@ -3,6 +3,12 @@
   height: 100dvh;
   @media screen and (min-width: 1110px) {
     display: grid;
-    grid-template-columns: 13.625rem auto;
+    grid-template-columns: 13.625rem 1fr;
   }
+}
+.layout__content {
+  overflow: hidden;
+}
+.section {
+  padding: 1rem;
 }

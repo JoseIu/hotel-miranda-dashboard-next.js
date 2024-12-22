@@ -12,6 +12,7 @@ export interface Booking {
   special_request: string | null;
   guest_image: string;
   room_type: RoomType;
+  room_number: number;
   order_date: string;
   check_in: string;
   check_out: string;
@@ -30,6 +31,19 @@ export interface BookingToSend {
   order_date: string;
   check_in: string;
   check_out: string;
+  status: BookingStatus;
+}
+export interface BookingToEdit {
+  guest_name: string;
+  guest_last_name: string;
+  special_request: string | null;
+  // guest_image: string;
+  room_type: RoomType;
+  // room_id: string;
+  room_number: number;
+  order_date: Date;
+  check_in: Date;
+  check_out: Date;
   status: BookingStatus;
 }
 

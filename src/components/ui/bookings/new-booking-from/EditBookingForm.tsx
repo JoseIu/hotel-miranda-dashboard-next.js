@@ -5,15 +5,15 @@ import {
   bookingShema,
 } from '@/app/(dashboard)/bookings/[id]/zod/bookingSchema';
 import { checkAvailability } from '@/app/actions/bookings/checkAvailability';
+import { updateBooking } from '@/app/actions/bookings/updateBooking';
 import { DatePicker } from '@/components/ui/date-picker/DatePicker';
 import { InputForm } from '@/components/ui/inpot-form/InputForm';
 import { SelecForm } from '@/components/ui/select-form/SelecForm';
 import { ROOM_TYPE_FORM } from '@/constants/roomTypeForm';
-import { Booking, RoomAvailability, RoomType } from '@/interfaces';
+import { Booking, BookingToEdit, RoomAvailability, RoomType } from '@/interfaces';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState, useTransition } from 'react';
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
-import { RoomsAvailable } from '../rooms-available/RoomsAvailable';
 
 type Props = {
   booking?: Booking | undefined;
@@ -44,8 +44,20 @@ export const EditBookingForm = ({ booking }: Props) => {
     setRoomsAvailable(response!.availableRooms ?? []);
   };
 
-  const onHandleEdit: SubmitHandler<BookingSchema> = (data) => {
-    console.log(data);
+  const onHandleEdit: SubmitHandler<BookingSchema> = async (data) => {
+    if (!booking) return;
+    const { room_number, order_date, check_in, check_out, special_request, ...rest } = data;
+
+    const bookingToEdit: BookingToEdit = {
+      ...rest,
+      order_date: new Date(order_date),
+      check_in: new Date(check_in),
+      check_out: new Date(check_out),
+      room_number: +room_number,
+      special_request: special_request || null,
+    };
+    console.log({ bookingToEdit });
+    await updateBooking(booking.id, bookingToEdit);
   };
 
   useEffect(() => {
@@ -58,11 +70,17 @@ export const EditBookingForm = ({ booking }: Props) => {
 
   useEffect(() => {
     if (!booking) return;
-    const { id, guest_image, special_request, ...rest } = booking;
+    const { id, guest_image, special_request, room_number, ...rest } = booking;
     const bookingToEdit = {
       ...rest,
+      check_in: new Date(rest.check_in).toISOString().split('T')[0],
+      check_out: new Date(rest.check_out).toISOString().split('T')[0],
+      order_date: new Date(rest.order_date).toISOString().split('T')[0],
+      room_number: `${room_number}`,
+
       special_request: special_request || '',
     };
+    console.log({ bookingToEditSet: bookingToEdit });
 
     reset(bookingToEdit);
   }, [booking, reset]);
@@ -99,8 +117,19 @@ export const EditBookingForm = ({ booking }: Props) => {
           label="Select a room type"
           options={ROOM_TYPE_FORM}
         />
+        <SelecForm
+          id="rooms-available"
+          label="Select a room"
+          error={errors['room_number']}
+          placeHolder="---select a room--"
+          options={roomsAvailable.map((room) => ({
+            label: `${room.room_number}-${room.room_type}`,
+            value: `${room.room_number}`,
+          }))}
+          {...register('room_number')}
+        />
 
-        <RoomsAvailable roomsAvailable={roomsAvailable} isPending={isPending} />
+        {/* <RoomsAvailable roomsAvailable={roomsAvailable} isPending={isPending} /> */}
       </div>
       <div className="form__row">
         <SelecForm
@@ -109,6 +138,12 @@ export const EditBookingForm = ({ booking }: Props) => {
           {...register('status')}
           label="Satatus"
           options={BOOKING_STATUS.map((status) => ({ label: status, value: status }))}
+        />
+        <DatePicker
+          label="Order date"
+          id="order_date"
+          error={errors['order_date']}
+          {...register('order_date')}
         />
       </div>
       <div className="form__row">

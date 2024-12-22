@@ -1,5 +1,6 @@
 import 'cal-sans';
 import type { Metadata } from 'next';
+import { Toaster } from 'react-hot-toast';
 import './global.scss';
 
 // const geistSans = localFont({
@@ -14,7 +15,10 @@ import './global.scss';
 // });
 
 export const metadata: Metadata = {
-  title: 'Hotel Miranda',
+  title: {
+    template: '%s ',
+    default: 'Hotel Reservation Dashboard',
+  },
   description: 'Dashboard to manage hotel reservations',
 };
 
@@ -25,7 +29,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+
+        <Toaster position="top-right" reverseOrder={false} />
+      </body>
     </html>
   );
 }

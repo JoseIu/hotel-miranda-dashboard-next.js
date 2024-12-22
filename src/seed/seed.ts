@@ -105,3 +105,32 @@ export const seedData: SeedData = {
   bookings: bookings(),
   rooms: rooms(),
 };
+interface MeesageSeed {
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string;
+  date: Date;
+  subject: string;
+  message: string;
+  archived: boolean;
+}
+
+const generateMessageSeed = (): MeesageSeed[] => {
+  const messageData: MeesageSeed[] = [];
+
+  for (let i = 0; i < 10; i++) {
+    const message: MeesageSeed = {
+      customer_name: faker.person.firstName(),
+      customer_email: faker.internet.email(),
+      customer_phone: faker.phone.number(),
+      date: faker.date.recent(),
+      subject: faker.lorem.sentence(),
+      message: faker.lorem.paragraph(),
+      archived: faker.datatype.boolean(),
+    };
+
+    messageData.push(message);
+  }
+  return messageData;
+};
+export const messageData: MeesageSeed[] = generateMessageSeed();

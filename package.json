@@ -7,13 +7,16 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "ts-node src/seed/seed-database.ts"
+    "seed": "ts-node src/seed/seed-database.ts",
+    "message": "ts-node src/seed/messages-seed.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "3.9.1",
     "@primer/octicons-react": "19.13.0",
     "@prisma/client": "6.0.1",
     "cal-sans": "^1.0.1",
+    "embla-carousel": "^8.5.1",
+    "embla-carousel-react": "^8.5.1",
     "next": "15.0.4",
     "react": "^19.0.0",
     "react-dom": "19.0.0",

@@ -1,0 +1,66 @@
+.message-skeleton {
+  height: 300px;
+  width: 100%;
+  padding: 1rem;
+  overflow: hidden;
+  &__messages {
+    display: flex;
+    gap: 1.5rem;
+  }
+  &__message {
+    min-width: 20rem;
+    height: 12.9375rem;
+    padding: 2rem;
+    background-color: var(--body-bg);
+    outline: 1px solid var(--border-color);
+  }
+  &__titlle {
+    width: 10rem;
+    height: 1.2rem;
+    margin-bottom: 0.7rem;
+    border-radius: 0.5rem;
+    background: #e0e0e0;
+    background: linear-gradient(90deg, #e0e0e0 25%, #fcfcfc 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+  }
+  &__description {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.3rem;
+  }
+  &__text {
+    width: 100%;
+    height: 1rem;
+    border-radius: 0.5rem;
+    background: #e0e0e0;
+    background: linear-gradient(90deg, #e0e0e0 25%, #fcfcfc 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+  }
+
+  &__controls {
+    margin-top: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  &__control {
+    width: 2.0625rem;
+    height: 2.0625rem;
+    outline: 1px solid var(--border-color);
+    border-radius: 999999px;
+    background: #e0e0e0;
+    background: linear-gradient(90deg, #e0e0e0 25%, #fcfcfc 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: 100%;
+  }
+  100% {
+    background-position: -100%;
+  }
+}

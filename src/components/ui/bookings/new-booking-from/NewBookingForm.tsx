@@ -13,11 +13,14 @@ import { ROOM_TYPE_FORM } from '@/constants/roomTypeForm';
 import { BookingToSend, RoomAvailability, RoomType } from '@/interfaces';
 import { faker } from '@faker-js/faker';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import './form.scss';
 
 export const NewBookingForm = () => {
+  const router = useRouter();
   const [roomsAvailable, setRoomsAvailable] = useState<RoomAvailability[]>([]);
 
   const {
@@ -57,9 +60,11 @@ export const NewBookingForm = () => {
     startSubmiting(async () => {
       const response = await addBooking({ booking: bookingToSend });
       if (response?.error) {
-        console.log('Error al crear la reserva');
+        toast.error('Error creating booking');
+        return;
       }
-      console.log('Reserva creada correctamente');
+      toast.success('Booking created successfully');
+      router.push('/bookings');
     });
   };
 
