@@ -3,9 +3,15 @@ import { BookingsFilters } from '@/components/ui/bookings/booking-filters/Bookin
 import { TableSkeleton } from '@/components/ui/table-skeleton/TableSkeleton';
 import { BookingStatus } from '@/interfaces';
 import { PlusIcon } from '@primer/octicons-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import './bookingsPage.scss';
+
+export const metadata: Metadata = {
+  title: 'Bookings',
+  description: 'Bookings page to manage hotel reservations',
+};
 type Props = {
   searchParams: Promise<{
     search?: string;
