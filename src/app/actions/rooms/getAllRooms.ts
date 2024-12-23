@@ -4,6 +4,7 @@ import prisma from '@/lib/prisma';
 
 export const getAllRooms = async () => {
   try {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const resp = await prisma.room.findMany({
       include: {
         room_images: true,
@@ -26,8 +27,13 @@ export const getAllRooms = async () => {
   } catch (error) {
     if (error instanceof Error) {
       return {
-        error: true,
         rooms: [],
+        error: true,
+      };
+    } else {
+      return {
+        rooms: [],
+        error: true,
       };
     }
   }
