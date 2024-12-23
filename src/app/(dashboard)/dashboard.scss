@@ -1,0 +1,38 @@
+.dashboard {
+  min-height: calc(100vh - 5.6rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+}
+.stat {
+  padding: 2rem 1rem;
+  border: 0.0625rem solid var(--border-color);
+  border-radius: 0.25rem;
+  background-color: var(--body-bg);
+
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  &__icon {
+    width: 3.3rem;
+    height: 3.3rem;
+    background-color: var(--secondary-color);
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+  }
+  &__content {
+  }
+  &__number {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  &__title {
+    font-size: 0.9rem;
+  }
+}

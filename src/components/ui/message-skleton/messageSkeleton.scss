@@ -1,7 +1,7 @@
 .message-skeleton {
   height: 300px;
   width: 100%;
-  padding: 1rem;
+  padding: 1.5rem 0.2rem;
   overflow: hidden;
   &__messages {
     display: flex;
@@ -10,6 +10,7 @@
   &__message {
     min-width: 20rem;
     height: 12.9375rem;
+    border-radius: 0.25rem;
     padding: 2rem;
     background-color: var(--body-bg);
     outline: 1px solid var(--border-color);
