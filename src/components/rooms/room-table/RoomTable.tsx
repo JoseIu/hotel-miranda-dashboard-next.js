@@ -1,14 +1,19 @@
 'use client';
 import { Room } from '@/interfaces';
+import { useRoomsStore } from '@/store/rooms/roomsStore';
 import { PencilIcon, TrashIcon } from '@primer/octicons-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import { RoomStatusBadge } from '../roo-status/RoomStatusBadge';
 type Props = {
   rooms: Room[];
 };
 export const RoomTable = ({ rooms }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState<string | null>('');
+
+  const setRooms = useRoomsStore((state) => state.setRooms);
+  setRooms(rooms);
 
   return (
     <>
@@ -37,11 +42,13 @@ export const RoomTable = ({ rooms }: Props) => {
                 <td className="table__body-td table__body-td--hiden">Amenities</td>
                 <td className="table__body-td">{room.price}</td>
                 <td className="table__body-td">{room.offer ? `${room.discount_percentage}%` : 'No Offer'}</td>
-                <td className="table__body-td">{room.status}</td>
+                <td className="table__body-td">
+                  <RoomStatusBadge status={room.status} />
+                </td>
 
                 <td className="table__body-td">
                   <div className="table__body-action">
-                    <Link href={`/`}>
+                    <Link href={`/rooms/${room.id}`}>
                       <PencilIcon size={20} />
                     </Link>
                     <button>
