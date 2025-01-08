@@ -1,14 +1,27 @@
 'use server';
 
 import prisma from '@/lib/prisma';
+import { Prisma } from '@prisma/client';
 
-export const getAllRooms = async () => {
+type Props = {
+  page?: number;
+  take?: number;
+  filter: string;
+};
+
+export const getAllRooms = async ({ page = 1, take = 15, filter }: Props) => {
+  console.log(filter);
+  if (isNaN(Number(page))) page = 1;
+  if (page < 1) page = 1;
   try {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const resp = await prisma.room.findMany({
+      take: take,
+      skip: (page - 1) * take,
       include: {
         room_images: true,
       },
+      orderBy: getRoomOrderType(filter),
     });
 
     const roomsFormatted = resp.map((room) => {
@@ -36,5 +49,20 @@ export const getAllRooms = async () => {
         error: true,
       };
     }
+  }
+};
+
+const getRoomOrderType = (status: string) => {
+  switch (status) {
+    case 'status':
+      return {
+        status: Prisma.SortOrder.asc,
+      };
+    case 'price':
+      return {
+        price: Prisma.SortOrder.desc,
+      };
+    default:
+      return {};
   }
 };
