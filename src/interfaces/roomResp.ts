@@ -8,6 +8,7 @@ export interface Room {
   room_number: number;
   room_type: string;
   status: RoomStatus;
+  description: string;
 }
 export type RoomStatus = 'AVAILABLE' | 'BOOKED';
 
@@ -20,4 +21,15 @@ export interface RoomAvailability {
   id: string;
   room_type: RoomType;
   room_number: number;
+}
+
+export interface CreateRoom {
+  room_number: number;
+  room_type: RoomType;
+  description: string;
+  price: number;
+  discount_percentage: number;
+  offer: boolean;
+  status: RoomStatus;
+  room_images: string[];
 }

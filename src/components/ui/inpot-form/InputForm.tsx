@@ -15,7 +15,7 @@ export const InputForm = ({ label, error, ref, ...inputProps }: Props) => {
 
   return (
     <div className="input-form">
-      <label className={`input-form__label ${hasErrorLabel}`} htmlFor={inputProps.name}>
+      <label className={`input-form__label ${hasErrorLabel}`} htmlFor={inputProps.id}>
         {label}*
       </label>
 
