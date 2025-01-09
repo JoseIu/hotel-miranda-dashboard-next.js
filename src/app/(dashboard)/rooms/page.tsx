@@ -18,7 +18,7 @@ const RoomsPage = async ({ searchParams }: Props) => {
   const filter = (await searchParams).filter || '';
 
   return (
-    <section>
+    <section className="rooms-page">
       <RoomFilters />
       <Suspense key={filter} fallback={<TableSkeleton />}>
         <RoomContent filter={filter} />
