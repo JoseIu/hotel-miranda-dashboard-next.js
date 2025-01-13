@@ -1,4 +1,4 @@
-import { RoomType } from './roomResp';
+import { Room, RoomType } from './roomResp';
 
 export interface BookingResp {
   bookings: Booking[];
@@ -48,3 +48,8 @@ export interface BookingToEdit {
 }
 
 export type BookingStatus = 'In_PROGRESS' | 'CHECK_IN' | 'CHECK_OUT';
+
+export interface BookingInfo {
+  booking: Booking;
+  room: Room;
+}
