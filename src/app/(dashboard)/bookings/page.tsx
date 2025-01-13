@@ -26,7 +26,7 @@ const BookingsPage = async ({ searchParams }: Props) => {
   const sortBy = (await searchParams).sort;
 
   return (
-    <div className="sections bookings-page">
+    <section>
       <div className="bookings-page__header">
         <BookingsFilters />
         <Link className="booking-add" href={`/bookings/new`}>
@@ -38,7 +38,7 @@ const BookingsPage = async ({ searchParams }: Props) => {
       <Suspense key={search + status + sortBy} fallback={<TableSkeleton />}>
         <BookingContent search={search} status={status} orderBy={sortBy} />
       </Suspense>
-    </div>
+    </section>
   );
 };
 
