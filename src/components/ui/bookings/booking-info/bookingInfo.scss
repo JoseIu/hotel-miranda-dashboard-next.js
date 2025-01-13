@@ -1,0 +1,116 @@
+.booking-info {
+  padding: 1rem;
+  background-color: var(--body-bg);
+  border: 0.0625rem solid var(--border-color);
+  border-radius: 0.25rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  &__user {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  &__user-img {
+    width: 7rem;
+    border-radius: 0.3rem;
+  }
+  &__user-name {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    display: flex;
+    flex-direction: column;
+  }
+  &__room {
+    border: 0.0625rem solid var(--border-color);
+    padding: 1rem;
+    border-radius: 0.25rem;
+  }
+  &__room-details {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  &__room-title {
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  }
+
+  &__left {
+    flex-basis: 30rem;
+    flex-grow: 1;
+  }
+  &__right {
+    flex-basis: 25rem;
+
+    flex-grow: 1;
+  }
+}
+
+.embla {
+  width: 100%;
+  padding: 0.5rem 0.2rem;
+  overflow: hidden;
+}
+
+.embla__container {
+  backface-visibility: hidden;
+  touch-action: pan-y pinch-zoom;
+  display: flex;
+  gap: 1.5rem;
+}
+.embla__slide {
+  min-width: 20rem;
+  padding: 2rem;
+  user-select: none;
+  outline: 1px solid black;
+  border-radius: 0.25rem;
+}
+.embla__slide--room {
+  min-width: 100%;
+}
+.embla__controls {
+  display: flex;
+  margin-top: 1.8rem;
+}
+.embla__buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.embla__button {
+  padding: 0.3rem;
+  border-radius: 99999px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:disabled {
+    opacity: 0.3;
+  }
+}
+.embla__button__svg {
+  width: 1.3rem;
+}
+.message {
+  background-color: var(--body-bg);
+  &__title {
+    font-size: 1.1rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  &__date {
+    font-size: 0.8rem;
+    color: var(--text-color-light);
+    text-transform: uppercase;
+  }
+  &__description {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+}
+.room-image {
+  width: 100%;
+}

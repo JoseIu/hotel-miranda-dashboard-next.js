@@ -39,12 +39,12 @@ export const BookingsTable = ({ bookings }: Props) => {
             {bookings.map((booking) => (
               <tr className="table__body-tr" key={booking.id}>
                 <td className="table__body-td">
-                  <div className="table__body-sender">
+                  <Link href={`/bookings/info/${booking.id}`} className="table__body-sender">
                     <img className="table__body-img" src={booking.guest_image} alt={booking.guest_name} />
                     <span className="table__body-td">
                       {booking.guest_name} - {booking.guest_last_name}
                     </span>
-                  </div>
+                  </Link>
                 </td>
                 <td className="table__body-td">{formatter(booking.order_date)}</td>
                 <td className="table__body-td table__body-td--hiden">

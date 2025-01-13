@@ -37,6 +37,10 @@
         padding: 0.5rem;
       }
     }
+    &-customer {
+      display: flex;
+      flex-direction: column;
+    }
     &-sender {
       display: flex;
       align-items: center;

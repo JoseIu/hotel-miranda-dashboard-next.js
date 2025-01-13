@@ -29,9 +29,12 @@ export const ContactTable = ({ messages }: Props) => {
                   <span className="table__body-td">{message.date.toLocaleDateString()}</span>
                 </td>
                 <td className="table__body-td">
-                  {message.customer_name}
-                  {message.customer_phone}
-                  {message.customer_email}
+                  <div className="table__body-customer">
+                    <div>
+                      {message.customer_name} - {message.customer_phone}
+                    </div>
+                    <div> {message.customer_email}</div>
+                  </div>
                 </td>
                 <td className="table__body-td table__body-td--hiden">
                   <button
