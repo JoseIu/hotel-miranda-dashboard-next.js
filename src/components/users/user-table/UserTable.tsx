@@ -1,10 +1,12 @@
 'use client';
 
+import { deleteUser } from '@/app/actions/users/createUser';
 import { Modal } from '@/components/ui/modal/Modal';
 import { User } from '@/interfaces/user';
 import { PencilIcon, TrashIcon } from '@primer/octicons-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { UserStatusBadge } from '../user-status/UserStatusBadge';
 
 type Props = {
@@ -14,6 +16,22 @@ type Props = {
 export const UserTable = ({ user }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState<string | null>('');
+
+  const [deleteId, setDeleteId] = useState<string>('');
+
+  const onDelete = async () => {
+    const toasId = toast.loading('Deleting user...');
+
+    const userDeleted = await deleteUser(deleteId);
+
+    if (userDeleted?.error) {
+      toast.dismiss(toasId);
+      toast.error('Error deleting user');
+    }
+    toast.dismiss(toasId);
+
+    toast.success('User deleted successfully');
+  };
 
   return (
     <>
@@ -64,7 +82,12 @@ export const UserTable = ({ user }: Props) => {
                     <Link href={`/user/${user.id}`}>
                       <PencilIcon size={20} />
                     </Link>
-                    <button>
+                    <button
+                      onClick={() => {
+                        setIsModalOpen(true);
+                        setDeleteId(user.id);
+                      }}
+                    >
                       <TrashIcon size={20} />
                     </button>
                   </div>
@@ -74,9 +97,42 @@ export const UserTable = ({ user }: Props) => {
           </tbody>
         </table>
       </section>
-      <Modal isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)}>
-        <div>{modalContent && modalContent}</div>
-      </Modal>
+      {modalContent && (
+        <Modal
+          isModalOpen={isModalOpen}
+          closeModal={() => {
+            setIsModalOpen(false);
+            setModalContent(null);
+          }}
+        >
+          <div>{modalContent && modalContent}</div>
+        </Modal>
+      )}
+
+      {!modalContent && (
+        <Modal isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)}>
+          <div className="modal-delete">
+            <button
+              className="modal-delete__btn modal-delete__btn--yes"
+              onClick={() => {
+                setIsModalOpen(false);
+                onDelete();
+              }}
+            >
+              Yes
+            </button>
+            <button
+              className="modal-delete__btn modal-delete__btn--no"
+              onClick={() => {
+                setIsModalOpen(false);
+                setDeleteId('');
+              }}
+            >
+              No
+            </button>
+          </div>
+        </Modal>
+      )}
     </>
   );
 };
