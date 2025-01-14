@@ -3,10 +3,10 @@ import { GoBack } from '@/components/ui/go-back/GoBack';
 
 const NewRoomPage = () => {
   return (
-    <div className="section-form">
+    <section className="section-form">
       <GoBack />
       <NewRoomForm />
-    </div>
+    </section>
   );
 };
 
