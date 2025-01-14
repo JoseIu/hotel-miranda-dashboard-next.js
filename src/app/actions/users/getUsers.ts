@@ -20,9 +20,9 @@ export const getUsers = async ({ page = 1, take = 10, search, status }: Props) =
         name: {
           contains: search,
         },
-        status: {
-          equals: status === 'active' ? true : false,
-        },
+        ...(status !== '' && {
+          status: status === 'active',
+        }),
       },
     });
 
