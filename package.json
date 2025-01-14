@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "seed": "ts-node src/seed/seed-database.ts",
-    "message": "ts-node src/seed/messages-seed.ts"
+    "message": "ts-node src/seed/messages-seed.ts",
+    "users": "ts-node src/seed/users-seed.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "3.9.1",
