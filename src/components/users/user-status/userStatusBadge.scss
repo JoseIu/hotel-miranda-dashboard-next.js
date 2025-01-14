@@ -1,0 +1,13 @@
+.room-status {
+  padding: 0.2rem 0.3rem;
+  font-size: 0.7rem;
+  border: 0.0625rem solid var(--border-color);
+  border-radius: 0.4rem;
+}
+.user-active {
+  background-color: var(--secondary-color);
+}
+
+.user-inactive {
+  background-color: #f1b443;
+}
