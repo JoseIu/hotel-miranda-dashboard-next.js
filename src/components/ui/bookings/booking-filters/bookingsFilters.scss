@@ -23,6 +23,7 @@
     padding: 0.7rem 0;
 
     border-right: 0.0625rem solid var(--border-color);
+    font-size: clamp(0.8rem, 1vw, 1rem);
     &:last-child {
       border: none;
     }

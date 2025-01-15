@@ -12,6 +12,7 @@ type Props = {
   searchParams: Promise<{
     search?: string;
     status?: string;
+    page?: string;
   }>;
 };
 

@@ -3,8 +3,10 @@
 import { deleteUser } from '@/app/actions/users/createUser';
 import { Modal } from '@/components/ui/modal/Modal';
 import { User } from '@/interfaces/user';
+import { useUsersStore } from '@/store/users/usersStore';
 import { PencilIcon, TrashIcon } from '@primer/octicons-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { UserStatusBadge } from '../user-status/UserStatusBadge';
@@ -14,10 +16,13 @@ type Props = {
 };
 
 export const UserTable = ({ user }: Props) => {
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState<string | null>('');
-
   const [deleteId, setDeleteId] = useState<string>('');
+
+  const setUsersToStorage = useUsersStore((state) => state.setUsers);
+  setUsersToStorage(user);
 
   const onDelete = async () => {
     const toasId = toast.loading('Deleting user...');
@@ -29,8 +34,8 @@ export const UserTable = ({ user }: Props) => {
       toast.error('Error deleting user');
     }
     toast.dismiss(toasId);
-
     toast.success('User deleted successfully');
+    router.refresh();
   };
 
   return (
@@ -79,7 +84,7 @@ export const UserTable = ({ user }: Props) => {
 
                 <td className="table__body-td">
                   <div className="table__body-action">
-                    <Link href={`/user/${user.id}`}>
+                    <Link href={`/users/${user.id}`}>
                       <PencilIcon size={20} />
                     </Link>
                     <button

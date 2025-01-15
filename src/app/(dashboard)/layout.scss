@@ -12,3 +12,24 @@
 .section {
   padding: 1rem;
 }
+
+.modal-delete {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  &__btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    &--yes {
+      background-color: green;
+    }
+
+    &--no {
+      color: white;
+
+      background-color: red;
+    }
+  }
+}

@@ -1,5 +1,5 @@
-import { NewUserForm } from '@/components/rooms/user-forms/NewUserForm';
 import { GoBack } from '@/components/ui/go-back/GoBack';
+import { NewUserForm } from '@/components/users/user-forms/NewUserForm';
 
 const NewUserPage = () => {
   return (
