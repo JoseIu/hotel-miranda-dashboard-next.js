@@ -1,17 +1,21 @@
 .room-filters {
+  width: 100%;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
   &__buttons {
+    flex-basis: 20rem;
     display: flex;
     align-items: center;
     outline: 0.0625rem solid var(--border-color);
     border-radius: 0.3rem;
   }
   &__button {
+    flex-grow: 1;
+
     padding: 0.5rem 1rem;
     border-right: 1px solid var(--border-color);
     &:last-child {
@@ -19,7 +23,8 @@
     }
   }
   &__add {
-    width: auto;
+    flex-basis: 10rem;
+
     background-color: var(--secondary-color);
     outline: 1px solid var(--border-color);
     border-radius: 0.3rem;
