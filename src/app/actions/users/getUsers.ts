@@ -26,9 +26,14 @@ export const getUsers = async ({ page = 1, take = 10, search, status }: Props) =
       },
     });
 
+    const totalCount = users.length;
+    const totalPages = Math.ceil(totalCount / take);
+
     return {
       users: users,
       error: false,
+      currentPage: page,
+      totalPages,
     };
   } catch (error) {
     if (error instanceof Error) {
