@@ -3,7 +3,7 @@ type Props = {
   totalPages: number;
 };
 
-export const PaginationNumbers = ({ currentPage, totalPages }: Props) => {
+export const generatePaginationNumbers = ({ currentPage, totalPages }: Props) => {
   // If totalPages is 7 or less, show all pages with no ellipsis
   if (totalPages <= 7) {
     return Array.from({ length: totalPages }, (_, i) => i + 1);

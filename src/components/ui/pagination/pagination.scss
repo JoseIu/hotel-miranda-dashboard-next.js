@@ -1,0 +1,23 @@
+.pagination {
+  padding: 1rem 0;
+  font-size: 0.8rem;
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    &-item {
+      background-color: yellow;
+    }
+    &-link {
+      padding: 0.3rem 0.7rem;
+      background-color: var(--body-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 0.25rem;
+
+      width: 100%;
+      &--active {
+        background-color: var(--secondary-color);
+      }
+    }
+  }
+}
