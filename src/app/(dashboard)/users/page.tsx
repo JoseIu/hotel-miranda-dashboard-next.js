@@ -19,11 +19,12 @@ type Props = {
 const UsersPage = async ({ searchParams }: Props) => {
   const serarch = (await searchParams).search || '';
   const status = (await searchParams).status || '';
+  const page = (await searchParams).page || '1';
   return (
     <section>
       <UsersFilter />
-      <Suspense key={serarch + status} fallback={<TableSkeleton />}>
-        <UserContent search={serarch} status={status} />
+      <Suspense key={serarch + status + page} fallback={<TableSkeleton />}>
+        <UserContent search={serarch} status={status} page={+page} />
       </Suspense>
     </section>
   );
