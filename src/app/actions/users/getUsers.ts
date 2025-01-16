@@ -16,6 +16,9 @@ export const getUsers = async ({ page = 1, take = 10, search, status }: Props) =
     const users = await prisma.user.findMany({
       take: take,
       skip: (page - 1) * take,
+    });
+
+    const totalCount = await prisma.user.count({
       where: {
         name: {
           contains: search,
@@ -25,8 +28,6 @@ export const getUsers = async ({ page = 1, take = 10, search, status }: Props) =
         }),
       },
     });
-
-    const totalCount = users.length;
     const totalPages = Math.ceil(totalCount / take);
 
     return {
