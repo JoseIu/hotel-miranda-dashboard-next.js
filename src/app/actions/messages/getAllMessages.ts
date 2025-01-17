@@ -1,29 +1,44 @@
 'use server';
 
-import { Message } from '@/interfaces/message';
 import prisma from '@/lib/prisma';
 type Props = {
   page?: number;
   take?: number;
 };
 
-export const getAllMessages = async ({ page = 1, take = 7 }: Props = {}): Promise<Message[]> => {
+export const getAllMessages = async ({ page = 1, take = 7 }: Props = {}) => {
   if (isNaN(Number(page))) page = 1;
   if (page < 1) page = 1;
 
-  console.log(page);
   try {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
     const messages = await prisma.message.findMany({
       take: take,
       skip: (page - 1) * take,
     });
 
-    return messages;
+    const totalCount = await prisma.message.count();
+    const totalPages = Math.ceil(totalCount / take);
+
+    return {
+      messages: messages,
+      error: false,
+      currentPage: page,
+      totalPages,
+    };
   } catch (error) {
     if (error instanceof Error) {
-      return [];
+      return {
+        messages: [],
+        error: false,
+        currentPage: page,
+        totalPages: 0,
+      };
     }
-    return [];
+    return {
+      messages: [],
+      error: false,
+      currentPage: page,
+      totalPages: 0,
+    };
   }
 };
