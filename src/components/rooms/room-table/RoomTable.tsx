@@ -1,19 +1,39 @@
 'use client';
+import { deleteRoom } from '@/app/actions/rooms/deleteRoom';
+import { Modal } from '@/components/ui/modal/Modal';
 import { Room } from '@/interfaces';
 import { useRoomsStore } from '@/store/rooms/roomsStore';
 import { PencilIcon, TrashIcon } from '@primer/octicons-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { RoomStatusBadge } from '../roo-status/RoomStatusBadge';
 type Props = {
   rooms: Room[];
 };
 export const RoomTable = ({ rooms }: Props) => {
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState<string | null>('');
+  const [deleteId, setDeleteId] = useState<string>('');
 
   const setRooms = useRoomsStore((state) => state.setRooms);
   setRooms(rooms);
+
+  const onDeleteRoom = async () => {
+    const toastId = toast.loading('Deleting room...');
+    const roomDeleted = await deleteRoom(deleteId);
+
+    if (roomDeleted?.error) {
+      toast.dismiss(toastId);
+      toast.error('Error deleting room');
+      return;
+    }
+
+    toast.dismiss(toastId);
+    toast.success('Room deleted successfully');
+    router.refresh();
+  };
 
   return (
     <>
@@ -51,7 +71,12 @@ export const RoomTable = ({ rooms }: Props) => {
                     <Link href={`/rooms/${room.id}`}>
                       <PencilIcon size={20} />
                     </Link>
-                    <button>
+                    <button
+                      onClick={() => {
+                        setIsModalOpen(true);
+                        setDeleteId(room.id);
+                      }}
+                    >
                       <TrashIcon size={20} />
                     </button>
                   </div>
@@ -61,9 +86,28 @@ export const RoomTable = ({ rooms }: Props) => {
           </tbody>
         </table>
       </section>
-      {/* <Modal isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)}>
-        <div>{modalContent && modalContent}</div>
-      </Modal> */}
+      <Modal isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)}>
+        <div className="modal-delete">
+          <button
+            className="modal-delete__btn modal-delete__btn--yes"
+            onClick={() => {
+              setIsModalOpen(false);
+              onDeleteRoom();
+            }}
+          >
+            Yes
+          </button>
+          <button
+            className="modal-delete__btn modal-delete__btn--no"
+            onClick={() => {
+              setIsModalOpen(false);
+              setDeleteId('');
+            }}
+          >
+            No
+          </button>
+        </div>
+      </Modal>
     </>
   );
 };

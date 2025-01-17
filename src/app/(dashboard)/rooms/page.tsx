@@ -11,17 +11,19 @@ export const metadata: Metadata = {
 type Props = {
   searchParams: Promise<{
     filter?: string;
+    page?: string;
   }>;
 };
 
 const RoomsPage = async ({ searchParams }: Props) => {
   const filter = (await searchParams).filter || '';
+  const page = (await searchParams).page || '1';
 
   return (
     <section className="rooms-page">
       <RoomFilters />
-      <Suspense key={filter} fallback={<TableSkeleton />}>
-        <RoomContent filter={filter} />
+      <Suspense key={filter + page} fallback={<TableSkeleton />}>
+        <RoomContent filter={filter} page={+page} />
       </Suspense>
     </section>
   );

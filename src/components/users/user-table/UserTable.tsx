@@ -32,6 +32,7 @@ export const UserTable = ({ user }: Props) => {
     if (userDeleted?.error) {
       toast.dismiss(toasId);
       toast.error('Error deleting user');
+      return;
     }
     toast.dismiss(toasId);
     toast.success('User deleted successfully');

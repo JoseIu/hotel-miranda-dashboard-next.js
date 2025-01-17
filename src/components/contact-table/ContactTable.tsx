@@ -1,14 +1,34 @@
 'use client';
+import { deleteMessage } from '@/app/actions/messages/deleteMessage';
 import { Message } from '@/interfaces/message';
 import { TrashIcon } from '@primer/octicons-react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { Modal } from '../ui/modal/Modal';
 type Props = {
   messages: Message[];
 };
 export const ContactTable = ({ messages }: Props) => {
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState<string | null>('');
+  const [deleteId, setDeleteId] = useState<string>('');
+
+  const onDeleteMessage = async () => {
+    const toasId = toast.loading('Deleting message...');
+    const userDeleted = await deleteMessage(deleteId);
+
+    if (userDeleted?.error) {
+      toast.dismiss(toasId);
+      toast.error('Error deleting message');
+      return;
+    }
+
+    toast.dismiss(toasId);
+    toast.success('Message deleted successfully');
+    router.refresh();
+  };
 
   return (
     <>
@@ -49,7 +69,12 @@ export const ContactTable = ({ messages }: Props) => {
 
                 <td className="table__body-td">
                   <div className="table__body-action">
-                    <button>
+                    <button
+                      onClick={() => {
+                        setIsModalOpen(true);
+                        setDeleteId(message.id);
+                      }}
+                    >
                       <TrashIcon size={20} />
                     </button>
                   </div>
@@ -59,9 +84,43 @@ export const ContactTable = ({ messages }: Props) => {
           </tbody>
         </table>
       </section>
-      <Modal isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)}>
-        <div>{modalContent && modalContent}</div>
-      </Modal>
+
+      {modalContent && (
+        <Modal
+          isModalOpen={isModalOpen}
+          closeModal={() => {
+            setIsModalOpen(false);
+            setModalContent(null);
+          }}
+        >
+          <div>{modalContent && modalContent}</div>
+        </Modal>
+      )}
+
+      {!modalContent && (
+        <Modal isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)}>
+          <div className="modal-delete">
+            <button
+              className="modal-delete__btn modal-delete__btn--yes"
+              onClick={() => {
+                setIsModalOpen(false);
+                onDeleteMessage();
+              }}
+            >
+              Yes
+            </button>
+            <button
+              className="modal-delete__btn modal-delete__btn--no"
+              onClick={() => {
+                setIsModalOpen(false);
+                setDeleteId('');
+              }}
+            >
+              No
+            </button>
+          </div>
+        </Modal>
+      )}
     </>
   );
 };

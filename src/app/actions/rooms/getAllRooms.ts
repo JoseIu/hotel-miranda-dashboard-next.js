@@ -33,19 +33,29 @@ export const getAllRooms = async ({ page = 1, take = 15, filter }: Props) => {
       };
     });
 
+    const toalCount = await prisma.room.count();
+    const totalPages = Math.ceil(toalCount / take);
+
     return {
       rooms: roomsFormatted,
+      currentPage: page,
+      totalPages,
       error: false,
     };
   } catch (error) {
     if (error instanceof Error) {
       return {
         rooms: [],
+        currentPage: page,
+        totalPages: 0,
         error: true,
       };
     } else {
       return {
         rooms: [],
+        currentPage: page,
+        totalPages: 0,
+
         error: true,
       };
     }
