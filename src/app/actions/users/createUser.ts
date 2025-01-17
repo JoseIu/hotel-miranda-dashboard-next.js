@@ -37,14 +37,11 @@ export const deleteUser = async (id: string) => {
       },
     });
 
-    console.log(userDeleted);
-
     return {
       user: userDeleted,
       error: false,
     };
   } catch (error) {
-    console.log(error);
     if (error instanceof Error) {
       return {
         user: null,
