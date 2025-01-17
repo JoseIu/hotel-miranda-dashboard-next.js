@@ -17,6 +17,7 @@ type Props = {
     search?: string;
     status?: BookingStatus;
     sort?: string;
+    page?: string;
   }>;
 };
 
@@ -24,6 +25,7 @@ const BookingsPage = async ({ searchParams }: Props) => {
   const search = (await searchParams).search || '';
   const status = (await searchParams).status;
   const sortBy = (await searchParams).sort;
+  const page = (await searchParams).page || '1';
 
   return (
     <section>
@@ -35,8 +37,8 @@ const BookingsPage = async ({ searchParams }: Props) => {
         </Link>
       </div>
 
-      <Suspense key={search + status + sortBy} fallback={<TableSkeleton />}>
-        <BookingContent search={search} status={status} orderBy={sortBy} />
+      <Suspense key={search + status + sortBy + page} fallback={<TableSkeleton />}>
+        <BookingContent search={search} status={status} orderBy={sortBy} page={+page} />
       </Suspense>
     </section>
   );
