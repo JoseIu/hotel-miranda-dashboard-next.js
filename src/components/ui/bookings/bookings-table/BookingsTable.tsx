@@ -1,5 +1,6 @@
 'use client';
 
+import { deleteBooking } from '@/app/actions/bookings/deleteBooking';
 import { BookingStatusBadge } from '@/components/ui/booking-status/BookingStatusBadge';
 import { Modal } from '@/components/ui/modal/Modal';
 import { RoomTypBadge } from '@/components/ui/room-type/RoomTypBadge';
@@ -8,17 +9,38 @@ import { useBookingStore } from '@/store/booking/bookingStore';
 import { formatter } from '@/utils';
 import { PencilIcon, TrashIcon } from '@primer/octicons-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import './bookingTable.scss';
 
 type Props = {
   bookings: Booking[];
 };
 export const BookingsTable = ({ bookings }: Props) => {
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState<string | null>('');
+  const [deleteId, setDeleteId] = useState<string>('');
+
   const setBookings = useBookingStore((state) => state.addBookings);
   setBookings(bookings);
+
+  const onDeleteBooking = async () => {
+    console.log(deleteId);
+
+    const toastId = toast.loading('Deleting booking...');
+    const bookingDeleted = await deleteBooking(deleteId);
+
+    if (bookingDeleted?.error) {
+      toast.dismiss(toastId);
+      toast.error('Error deleting booking');
+      return;
+    }
+    toast.dismiss(toastId);
+    toast.success('Booking deleted successfully');
+    router.refresh();
+  };
   return (
     <>
       <section className="table-container">
@@ -72,7 +94,12 @@ export const BookingsTable = ({ bookings }: Props) => {
                     <Link href={`/bookings/${booking.id}`}>
                       <PencilIcon size={20} />
                     </Link>
-                    <button>
+                    <button
+                      onClick={() => {
+                        setIsModalOpen(true);
+                        setDeleteId(booking.id);
+                      }}
+                    >
                       <TrashIcon size={20} />
                     </button>
                   </div>
@@ -82,9 +109,42 @@ export const BookingsTable = ({ bookings }: Props) => {
           </tbody>
         </table>
       </section>
-      <Modal isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)}>
-        <div>{modalContent && modalContent}</div>
-      </Modal>
+      {modalContent && (
+        <Modal
+          isModalOpen={isModalOpen}
+          closeModal={() => {
+            setIsModalOpen(false);
+            setModalContent(null);
+          }}
+        >
+          <div>{modalContent && modalContent}</div>
+        </Modal>
+      )}
+
+      {!modalContent && (
+        <Modal isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)}>
+          <div className="modal-delete">
+            <button
+              className="modal-delete__btn modal-delete__btn--yes"
+              onClick={() => {
+                setIsModalOpen(false);
+                onDeleteBooking();
+              }}
+            >
+              Yes
+            </button>
+            <button
+              className="modal-delete__btn modal-delete__btn--no"
+              onClick={() => {
+                setIsModalOpen(false);
+                setDeleteId('');
+              }}
+            >
+              No
+            </button>
+          </div>
+        </Modal>
+      )}
     </>
   );
 };
