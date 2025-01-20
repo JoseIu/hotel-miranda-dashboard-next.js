@@ -9,12 +9,14 @@
     "lint": "next lint",
     "seed": "ts-node src/seed/seed-database.ts",
     "message": "ts-node src/seed/messages-seed.ts",
-    "users": "ts-node src/seed/users-seed.ts"
+    "users": "ts-node src/seed/users-seed.ts",
+    "admin": "ts-node src/seed/adminUser-seed.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "3.9.1",
     "@primer/octicons-react": "19.13.0",
     "@prisma/client": "6.0.1",
+    "bcryptjs": "^2.4.3",
     "cal-sans": "^1.0.1",
     "embla-carousel": "^8.5.1",
     "embla-carousel-react": "^8.5.1",
@@ -29,6 +31,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "9.3.0",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "20",
     "@types/react": "19",
     "@types/react-dom": "19",
