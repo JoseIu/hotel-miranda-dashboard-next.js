@@ -1,36 +1,33 @@
-'use client';
-const SigInPage = () => {
+import { auth } from '@/auth';
+import { LogoHotel } from '@/components/icons/LogoHotel';
+import { redirect } from 'next/navigation';
+import { LoginForm } from './LoginForm';
+import './loginPage.scss';
+
+const SigInPage = async () => {
+  const session = await auth();
+
+  if (session?.user) {
+    redirect('/');
+  }
+
   return (
-    <div className="auth-container">
-      <form className="custom-form">
-        <input type="hidden" name="csrfToken" />
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            value={'email'}
-            placeholder="Enter your email"
-            onChange={(e) => console.log(e.target.value)}
-            required
-          />
+    <section className="auth-login">
+      <div className="auth-container wrapper">
+        <div className="auth-container__left">
+          <LogoHotel className="auth-container__logo" />
+          <h2 className="auth-container__title">Access the Hotel Miranda admin dashboard</h2>
+          <p className="auth-container__subtitle">
+            Our customers rate us 4.5 out of 5 stars based on 3200+ reviews!
+          </p>
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            placeholder="Enter your password"
-            value={'password'}
-            onChange={(e) => console.log(e.target.value)}
-            required
-          />
+
+        <div className="auth-container__right">
+          <LoginForm />
         </div>
-        <button type="submit" className="custom-button">
-          Sign in
-        </button>
-      </form>
-    </div>
+      </div>
+      <div className="auth-login__background"></div>
+    </section>
   );
 };
 
