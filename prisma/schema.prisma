@@ -104,3 +104,13 @@ model User {
 
   user_image String
 }
+
+model UserAdmin {
+  id         String   @id @default(uuid())
+  role       String   @default("admin")
+  name       String
+  email      String   @unique
+  password   String
+  created_at DateTime @default(now())
+  image      String
+}
