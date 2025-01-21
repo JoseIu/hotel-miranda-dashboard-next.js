@@ -57,7 +57,7 @@ export const BookingInfo = ({ booking, room }: Props) => {
             <div className="embla__container">
               {room.images.map((image) => (
                 <article key={image} className="embla__slide embla__slide--room message">
-                  <img src={image} alt="image room" />
+                  <img src={`/images/${image}`} alt="image room" />
                 </article>
               ))}
             </div>

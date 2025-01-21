@@ -2,6 +2,7 @@
 import { useSideBar } from '@/store/ui/sideBar';
 import { CalendarIcon, InboxIcon, LockIcon, PersonIcon, ProjectIcon } from '@primer/octicons-react';
 import { Logo } from '../logo/Logo';
+import { ProfileCard } from '../profile-card/ProfileCard';
 import './sideBard.scss';
 import { SideBarItem } from './SideBarItem';
 
@@ -50,6 +51,8 @@ export const SideBar = () => {
             <SideBarItem key={menu.path} path={menu.path} title={menu.title} Icon={menu.Icon} />
           ))}
         </ul>
+
+        <ProfileCard />
       </aside>
     </div>
   );
