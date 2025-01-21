@@ -1,0 +1,22 @@
+.profile-card {
+  position: absolute;
+  bottom: 10rem;
+  width: 80%;
+  padding: 0.5rem;
+  outline: 0.0625rem solid var(--border-color);
+  box-shadow: var(--box-shadow);
+  border-radius: 0.25rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  &__img {
+    width: 5rem;
+    border-radius: 999999px;
+    outline: 0.0625rem solid var(--border-color);
+  }
+  &__name {
+    font-size: 1.1rem;
+  }
+}
