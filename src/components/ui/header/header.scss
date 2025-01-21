@@ -1,9 +1,30 @@
 .header {
-  padding: 1rem;
+  padding: 0.7rem 1.1rem;
   border-bottom: 1px solid var(--border-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   &__toggle {
     @media screen and (min-width: 1110px) {
       display: none;
     }
+  }
+}
+
+.log-out {
+  background-color: var(--body-bg);
+  padding: 0.3rem;
+  border-radius: 999999999px;
+  outline: 1px solid var(--border-color);
+  transition: background-color 0.3s;
+
+  @media screen and (min-width: 1110px) {
+    margin-left: auto;
+  }
+
+  &:hover {
+    background-color: var(--secondary-color);
   }
 }
