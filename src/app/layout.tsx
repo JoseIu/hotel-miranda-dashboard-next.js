@@ -1,3 +1,4 @@
+import { AuthProvider } from '@/providers/AuthProvider';
 import 'cal-sans';
 import type { Metadata } from 'next';
 import { Toaster } from 'react-hot-toast';
@@ -28,12 +29,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        {children}
+    <AuthProvider>
+      <html lang="en">
+        <body>
+          {children}
 
-        <Toaster position="top-right" reverseOrder={false} />
-      </body>
-    </html>
+          <Toaster position="top-right" reverseOrder={false} />
+        </body>
+      </html>
+    </AuthProvider>
   );
 }
