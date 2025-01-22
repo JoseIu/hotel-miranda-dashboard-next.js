@@ -7,7 +7,6 @@ export const updateBooking = async (booking_id: string, booking: Partial<Booking
   try {
     const currentBooking = await prisma.booking.findUnique({
       where: { id: booking_id },
-      include: { guest_image: true },
     });
     if (!currentBooking) {
       throw new Error('Booking not found');
@@ -28,34 +27,45 @@ export const updateBooking = async (booking_id: string, booking: Partial<Booking
 
     const changedEntries = getEntriesChanged(bookingFormatged, booking);
 
-    console.log({ changedEntries });
+    if (!changedEntries.length) throw new Error('No changes');
+    await prisma.booking.update({
+      where: { id: booking_id },
+      data: Object.fromEntries(changedEntries.map(({ field, newValue }) => [field, newValue])),
+    });
+
+    return {
+      error: false,
+    };
   } catch (error) {
-    console.log(error);
+    if (error instanceof Error) {
+      return {
+        error: true,
+      };
+    }
   }
 };
 
-//TODO: Implemente edit booking
-const getEntriesChanged = (current: BookingToEdit, updated: Partial<BookingToEdit>) => {
-  const entries = Object.entries(updated);
+interface EntriesChanged {
+  field: string;
+  newValue: string | number | Date | null;
+}
 
-  const changedEntries = entries.filter(([key, value]) => {
-    const currentValue = current[key as keyof BookingToEdit];
+const getEntriesChanged = (current: BookingToEdit, updated: Partial<BookingToEdit>): EntriesChanged[] => {
+  return Object.entries(updated)
+    .filter(([key, newValue]) => {
+      const currentValue = current[key as keyof BookingToEdit];
 
-    if (typeof currentValue === 'string' && typeof value === 'string') {
-      return currentValue.trim() !== value.trim();
-    }
+      if (currentValue instanceof Date || newValue instanceof Date) {
+        return new Date(currentValue!).getTime() !== new Date(newValue!).getTime();
+      }
 
-    if (currentValue instanceof Date || typeof currentValue === 'string') {
-      const currentDate = new Date(currentValue).getTime();
-      const updatedDate = new Date(value as string | Date).getTime();
-      return currentDate !== updatedDate;
-    }
-
-    return currentValue !== value;
-  });
-
-  return changedEntries.map(([key, value]) => ({
-    field: key,
-    newValue: value,
-  }));
+      if (typeof currentValue === 'string' && typeof newValue === 'string') {
+        return currentValue.trim() !== newValue.trim();
+      }
+      return currentValue !== newValue;
+    })
+    .map(([key, newValue]) => ({
+      field: key,
+      newValue,
+    }));
 };

@@ -13,6 +13,8 @@
     padding: 0.75rem 0;
     width: 100%;
     outline: 0.0625rem solid var(--border-color);
+    background-color: var(--body-bg);
+
     border-radius: 0.25rem;
     padding: 0.7rem 1rem;
     &:focus {
@@ -23,7 +25,7 @@
   &__icon {
     width: 1.5rem;
     position: absolute;
-    top: 50%;
+    top: 60%;
     right: 1rem;
     user-select: none;
     pointer-events: none;

@@ -14,10 +14,10 @@ export const bookingShema = z.object({
     .min(1, { message: 'Order Date is required' })
     .refine((date) => new Date(date).toString() !== 'Invalid Date', {
       message: 'Select a valid date formant',
-    })
-    .refine((date) => new Date(date) >= new Date(new Date().toDateString()), {
-      message: 'The date cannot be in the past',
     }),
+  // .refine((date) => new Date(date) >= new Date(new Date().toDateString()), {
+  //   message: 'The date cannot be in the past',
+  // }),
 
   check_in: z
     .string()

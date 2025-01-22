@@ -1,13 +1,15 @@
 'use client';
+import { updateRoomAction } from '@/app/actions/rooms/updateRoom';
 import { InputForm } from '@/components/ui/inpot-form/InputForm';
 import { SelecForm } from '@/components/ui/select-form/SelecForm';
 import { ROOM_TYPE_FORM } from '@/constants/roomTypeForm';
-import { CreateRoom, Room, RoomType } from '@/interfaces';
+import { Room, RoomType, UpdateRoom } from '@/interfaces';
 import { faker } from '@faker-js/faker';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useEffect, useTransition } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { ROOM_STATUS, roomSchema, RoomSchema } from './roomschema';
 
 type Props = {
@@ -29,9 +31,10 @@ export const EditRoomForm = ({ room }: Props) => {
   const [isSubmiting, startSubmiting] = useTransition();
 
   const onHandleSubmit: SubmitHandler<RoomSchema> = async (data) => {
+    const toastId = toast.loading('Saving updates...');
     const { description, discount_percentage, price, room_type, status } = data;
 
-    const updateRoom: CreateRoom = {
+    const updateRoom: UpdateRoom = {
       description,
       room_type,
       discount_percentage: +discount_percentage,
@@ -39,10 +42,21 @@ export const EditRoomForm = ({ room }: Props) => {
       status,
       offer: +discount_percentage > 0,
       room_number: faker.helpers.rangeToNumber({ min: 2, max: 1000 }),
-      room_images: ['room1.webp', 'room2.webp', 'room3.webp'],
     };
 
-    startSubmiting(async () => {});
+    startSubmiting(async () => {
+      const roomUpdated = await updateRoomAction(room!.id, updateRoom);
+
+      if (roomUpdated?.error) {
+        toast.dismiss(toastId);
+        toast.error('Error updating room');
+        return;
+      }
+      toast.dismiss(toastId);
+      toast.success('Room updated');
+
+      router.push('/rooms');
+    });
   };
 
   useEffect(() => {

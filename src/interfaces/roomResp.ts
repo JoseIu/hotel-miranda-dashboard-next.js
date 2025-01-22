@@ -33,3 +33,12 @@ export interface CreateRoom {
   status: RoomStatus;
   room_images: string[];
 }
+export interface UpdateRoom {
+  room_number: number;
+  room_type: RoomType;
+  description: string;
+  price: number;
+  discount_percentage: number;
+  offer: boolean;
+  status: RoomStatus;
+}
