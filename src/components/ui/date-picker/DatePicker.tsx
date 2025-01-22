@@ -8,19 +8,14 @@ type Props = React.ComponentProps<'input'> & {
 export const DatePicker = ({ label, error, ref, ...inputProps }: Props) => {
   const hasError = error && 'error';
   const hasErrorLabel = error && 'error-label';
+
   return (
     <div className="input-form">
       <label className={`input-form__label ${hasErrorLabel}`} htmlFor={inputProps.id}>
         {label}*
       </label>
       <div className={`input-form__container ${hasError}`}>
-        <input
-          className="input-form__input"
-          ref={ref}
-          type="date"
-          {...inputProps}
-          min={new Date().toISOString().split('T')[0]}
-        />
+        <input className="input-form__input" ref={ref} type="date" {...inputProps} />
       </div>
       {error && <span className="input-form__error">{error.message}</span>}
     </div>
