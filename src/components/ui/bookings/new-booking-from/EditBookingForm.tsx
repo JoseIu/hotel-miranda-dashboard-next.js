@@ -12,14 +12,17 @@ import { SelecForm } from '@/components/ui/select-form/SelecForm';
 import { ROOM_TYPE_FORM } from '@/constants/roomTypeForm';
 import { Booking, BookingToEdit, RoomAvailability, RoomType } from '@/interfaces';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 type Props = {
   booking?: Booking | undefined;
 };
 
 export const EditBookingForm = ({ booking }: Props) => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -56,11 +59,19 @@ export const EditBookingForm = ({ booking }: Props) => {
       room_number: +room_number,
       special_request: special_request || null,
     };
-    console.log({ bookingToEdit });
-    await updateBooking(booking.id, bookingToEdit);
+
+    const bookingUdated = await updateBooking(booking.id, bookingToEdit);
+    if (bookingUdated?.error) {
+      toast.error('Error updating booking');
+      return;
+    }
+
+    toast.success('Booking updated');
+    router.push('/bookings');
   };
 
   useEffect(() => {
+    if (booking) return;
     if (!checkIn && !checkOut) return;
 
     startTransition(() => {
@@ -80,7 +91,12 @@ export const EditBookingForm = ({ booking }: Props) => {
 
       special_request: special_request || '',
     };
-    console.log({ bookingToEditSet: bookingToEdit });
+    const roomType: RoomAvailability = {
+      id: booking.room_id,
+      room_number: booking.room_number,
+      room_type: booking.room_type,
+    };
+    setRoomsAvailable([roomType]);
 
     reset(bookingToEdit);
   }, [booking, reset]);
@@ -105,7 +121,13 @@ export const EditBookingForm = ({ booking }: Props) => {
       </div>
 
       <div className="form__row">
-        <DatePicker label="Check in" id="check_in" error={errors['check_in']} {...register('check_in')} />
+        <DatePicker
+          label="Check in"
+          id="check_in"
+          min={booking?.check_in || new Date().toISOString().split('T')[0]}
+          error={errors['check_in']}
+          {...register('check_in')}
+        />
         <DatePicker label="Check out" id="check_out" error={errors['check_out']} {...register('check_out')} />
       </div>
 
@@ -142,6 +164,7 @@ export const EditBookingForm = ({ booking }: Props) => {
         <DatePicker
           label="Order date"
           id="order_date"
+          min={booking?.order_date || new Date().toISOString().split('T')[0]}
           error={errors['order_date']}
           {...register('order_date')}
         />
