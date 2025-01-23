@@ -124,24 +124,27 @@ export const BookingsTable = ({ bookings }: Props) => {
       {!modalContent && (
         <Modal isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)}>
           <div className="modal-delete">
-            <button
-              className="modal-delete__btn modal-delete__btn--yes"
-              onClick={() => {
-                setIsModalOpen(false);
-                onDeleteBooking();
-              }}
-            >
-              Yes
-            </button>
-            <button
-              className="modal-delete__btn modal-delete__btn--no"
-              onClick={() => {
-                setIsModalOpen(false);
-                setDeleteId('');
-              }}
-            >
-              No
-            </button>
+            <h2 className="modal-delete__title">Are you sure you want to delete this booking?</h2>
+            <div className="modal-delete__btns">
+              <button
+                className="modal-delete__btn modal-delete__btn--yes"
+                onClick={() => {
+                  setIsModalOpen(false);
+                  onDeleteBooking();
+                }}
+              >
+                Yes
+              </button>
+              <button
+                className="modal-delete__btn modal-delete__btn--no"
+                onClick={() => {
+                  setIsModalOpen(false);
+                  setDeleteId('');
+                }}
+              >
+                No
+              </button>
+            </div>
           </div>
         </Modal>
       )}

@@ -12,7 +12,7 @@ type Props = {
 export const Pagination = ({ totalPages }: Props) => {
   const pathName = usePathname();
   const serachParams = useSearchParams();
-  const currentPage = Number(serachParams.get('page')) ?? 1;
+  const currentPage = Number(serachParams.get('page')) || 1;
 
   const allPages = generatePaginationNumbers({ currentPage, totalPages });
 
@@ -37,7 +37,7 @@ export const Pagination = ({ totalPages }: Props) => {
       <ul className="pagination__list">
         <li>
           <Link href={createPageUrl(currentPage - 1)}>
-            <ChevronLeftIcon size={30} />
+            <ChevronLeftIcon size={20} />
           </Link>
         </li>
 
@@ -54,7 +54,7 @@ export const Pagination = ({ totalPages }: Props) => {
 
         <li>
           <Link href={createPageUrl(currentPage + 1)}>
-            <ChevronRightIcon size={30} />
+            <ChevronRightIcon size={20} />
           </Link>
         </li>
       </ul>
