@@ -1,0 +1,49 @@
+.not-found {
+  height: calc(100vh - 10rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10rem;
+  gap: 1rem;
+  &__title {
+    font-size: clamp(2.5rem, 16vw, 10rem);
+  }
+  &__error {
+    width: max-content;
+    background-color: var(--secondary-color);
+    padding: 1rem 3rem;
+    border: 0.125rem solid var(--border-color);
+    border-radius: 0.25rem;
+  }
+  &__code {
+    font-size: clamp(2rem, 8vw, 5rem);
+    font-weight: 600;
+  }
+  &__text {
+    font-size: clamp(1rem, 5vw, 2rem);
+    font-weight: 600;
+  }
+
+  &__btn {
+    width: max-content;
+
+    background-color: var(--body-bg);
+    padding: 1rem 2rem;
+    border: 0.125rem solid var(--border-color);
+    border-radius: 3rem;
+
+    transition: background-color 0.3s ease-in;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: var(--secondary-color);
+    }
+  }
+
+  &__arrow {
+    width: 2rem;
+  }
+}
