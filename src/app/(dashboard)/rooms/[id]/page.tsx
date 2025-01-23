@@ -2,6 +2,7 @@
 import { EditRoomForm } from '@/components/rooms/new-room-form/EditRoomForm';
 import { GoBack } from '@/components/ui/go-back/GoBack';
 import { useRoomsStore } from '@/store/rooms/roomsStore';
+import { notFound } from 'next/navigation';
 import { use } from 'react';
 
 type Props = {
@@ -11,6 +12,8 @@ const EditRoomPage = ({ params }: Props) => {
   const { id } = use(params);
 
   const room = useRoomsStore((state) => state.rooms).find((room) => room.id === id);
+
+  if (!room) return notFound();
   return (
     <div className="section-form">
       <GoBack />
