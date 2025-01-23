@@ -18,7 +18,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 2rem;
+  &__title {
+    font-size: clamp(1rem, 1.6vw, 1.3rem);
+  }
+
+  &__btns {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-evenly;
+  }
   &__btn {
     padding: 0.5rem 1rem;
     border-radius: 0.25rem;
