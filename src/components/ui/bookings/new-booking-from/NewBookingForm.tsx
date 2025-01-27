@@ -31,7 +31,6 @@ export const NewBookingForm = () => {
   } = useForm<BookingSchema>({
     resolver: zodResolver(bookingShema),
   });
-  console.log({ roomsAvailable });
   const checkIn = useWatch({ control, name: 'check_in' });
   const checkOut = useWatch({ control, name: 'check_out' });
   const roomType = useWatch({ control, name: 'room_type' });
@@ -46,7 +45,6 @@ export const NewBookingForm = () => {
     setRoomsAvailable(response!.availableRooms);
   };
 
-  console.log(isSubmiting);
   const onHandleSubmit: SubmitHandler<BookingSchema> = async (data) => {
     const { special_request, room_number, ...rest } = data;
     const bookingToSend: BookingToSend = {
@@ -56,7 +54,6 @@ export const NewBookingForm = () => {
       special_request: special_request || null,
     };
 
-    console.log({ bookingToSend });
     startSubmiting(async () => {
       const response = await addBooking({ booking: bookingToSend });
       if (response?.error) {

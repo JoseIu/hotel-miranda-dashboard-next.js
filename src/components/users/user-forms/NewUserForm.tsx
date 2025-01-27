@@ -27,7 +27,6 @@ export const NewUserForm = () => {
   const onHandleSubmit: SubmitHandler<UserS> = async (data) => {
     const { name, email, phone, status, jog_description } = data;
 
-    console.log({ data });
     const newUser: NewUser = {
       name,
       email,

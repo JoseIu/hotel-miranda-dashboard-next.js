@@ -31,7 +31,6 @@ export const EditUserForm = ({ user }: Props) => {
   const onHandleSubmit: SubmitHandler<UserS> = async (data) => {
     const { name, email, phone, status, jog_description } = data;
 
-    console.log({ data });
     const newUser: Partial<NewUser> = {
       name,
       email,

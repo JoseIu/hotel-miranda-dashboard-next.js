@@ -5,7 +5,6 @@ import prisma from '@/lib/prisma';
 
 export const checkAvailability = async (start: string, end: string, room_type: RoomType) => {
   try {
-    console.log({ start, end, room_type });
     const startDate = new Date(start);
     startDate.setUTCHours(10, 0, 0, 0);
 

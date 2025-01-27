@@ -15,7 +15,7 @@ export const getBookings = async ({ page = 1, take = 10, search, status, orderBy
   if (isNaN(Number(page))) page = 1;
   if (page < 1) page = 1;
   try {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
     const bookings = await prisma.booking.findMany({
       take: take,
       skip: (page - 1) * take,
