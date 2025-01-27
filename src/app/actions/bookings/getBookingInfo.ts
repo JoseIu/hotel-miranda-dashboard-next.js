@@ -5,7 +5,7 @@ import prisma from '@/lib/prisma';
 
 export const getBookingInfo = async (id: string) => {
   try {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
     const booking = await prisma.booking.findUnique({
       where: {
         id: id,

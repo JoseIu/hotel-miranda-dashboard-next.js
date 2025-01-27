@@ -7,8 +7,6 @@ type Props = {
   booking: BookingToSend;
 };
 export const addBooking = async ({ booking }: Props) => {
-  await new Promise((resolve) => setTimeout(resolve, 4000));
-
   try {
     const { order_date, check_in, check_out, guest_image, ...rest } = booking;
     const room = await prisma.room.findFirst({ where: { room_number: booking.room_number } });

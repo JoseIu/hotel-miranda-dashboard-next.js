@@ -11,7 +11,6 @@ export const updateBooking = async (booking_id: string, booking: Partial<Booking
     if (!currentBooking) {
       throw new Error('Booking not found');
     }
-    console.log({ currentBooking });
 
     const bookingFormatged: BookingToEdit = {
       guest_name: currentBooking.guest_name,

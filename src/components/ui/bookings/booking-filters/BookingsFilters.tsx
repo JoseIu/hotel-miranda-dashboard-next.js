@@ -45,7 +45,6 @@ export const BookingsFilters = () => {
   const onSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const sort = e.target.value;
 
-    console.log({ sort });
     route.replace(generatePageUrl(currentSearch, filterStatus, sort));
   };
 

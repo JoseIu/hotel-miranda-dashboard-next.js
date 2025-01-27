@@ -27,8 +27,6 @@ export const BookingsTable = ({ bookings }: Props) => {
   setBookings(bookings);
 
   const onDeleteBooking = async () => {
-    console.log(deleteId);
-
     const toastId = toast.loading('Deleting booking...');
     const bookingDeleted = await deleteBooking(deleteId);
 

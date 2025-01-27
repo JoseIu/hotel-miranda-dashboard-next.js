@@ -10,7 +10,6 @@ type Props = {
 };
 
 export const getAllRooms = async ({ page = 1, take = 15, filter }: Props) => {
-  console.log(filter);
   if (isNaN(Number(page))) page = 1;
   if (page < 1) page = 1;
   try {
