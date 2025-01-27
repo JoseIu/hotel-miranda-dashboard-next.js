@@ -77,7 +77,7 @@ export const EditBookingForm = ({ booking }: Props) => {
     startTransition(() => {
       checkAvailabilityy(checkIn, checkOut, roomType);
     });
-  }, [checkIn, checkOut, roomType]);
+  }, [checkIn, checkOut, roomType, booking]);
 
   useEffect(() => {
     if (!booking) return;
