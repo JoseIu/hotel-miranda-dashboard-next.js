@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "npm run prims:deploy && build",
     "start": "next start",
     "lint": "next lint",
+    "prisma:deploy": "npx prisma migrate deploy && generate",
     "seed": "ts-node src/seed/seed-database.ts",
     "message": "ts-node src/seed/messages-seed.ts",
     "users": "ts-node src/seed/users-seed.ts",
