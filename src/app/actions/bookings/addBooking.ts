@@ -27,7 +27,6 @@ export const addBooking = async ({ booking }: Props) => {
     };
   } catch (error) {
     if (error instanceof Error) {
-      throw new Error(error.message);
       return {
         booking: null,
         error: true,

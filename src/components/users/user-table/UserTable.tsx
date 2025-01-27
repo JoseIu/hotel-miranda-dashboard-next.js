@@ -7,7 +7,7 @@ import { useUsersStore } from '@/store/users/usersStore';
 import { PencilIcon, TrashIcon } from '@primer/octicons-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { UserStatusBadge } from '../user-status/UserStatusBadge';
 
@@ -22,7 +22,10 @@ export const UserTable = ({ user }: Props) => {
   const [deleteId, setDeleteId] = useState<string>('');
 
   const setUsersToStorage = useUsersStore((state) => state.setUsers);
-  setUsersToStorage(user);
+
+  useEffect(() => {
+    setUsersToStorage(user);
+  }, [user, setUsersToStorage]);
 
   const onDelete = async () => {
     const toasId = toast.loading('Deleting user...');

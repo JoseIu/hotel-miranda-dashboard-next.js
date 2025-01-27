@@ -10,7 +10,7 @@ import { formatter } from '@/utils';
 import { PencilIcon, TrashIcon } from '@primer/octicons-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import './bookingTable.scss';
 
@@ -24,7 +24,10 @@ export const BookingsTable = ({ bookings }: Props) => {
   const [deleteId, setDeleteId] = useState<string>('');
 
   const setBookings = useBookingStore((state) => state.addBookings);
-  setBookings(bookings);
+
+  useEffect(() => {
+    setBookings(bookings);
+  }, [bookings, setBookings]);
 
   const onDeleteBooking = async () => {
     const toastId = toast.loading('Deleting booking...');

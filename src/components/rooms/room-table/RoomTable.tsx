@@ -6,7 +6,7 @@ import { useRoomsStore } from '@/store/rooms/roomsStore';
 import { PencilIcon, TrashIcon } from '@primer/octicons-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { RoomStatusBadge } from '../roo-status/RoomStatusBadge';
 type Props = {
@@ -18,7 +18,10 @@ export const RoomTable = ({ rooms }: Props) => {
   const [deleteId, setDeleteId] = useState<string>('');
 
   const setRooms = useRoomsStore((state) => state.setRooms);
-  setRooms(rooms);
+
+  useEffect(() => {
+    setRooms(rooms);
+  }, [rooms, setRooms]);
 
   const onDeleteRoom = async () => {
     const toastId = toast.loading('Deleting room...');
